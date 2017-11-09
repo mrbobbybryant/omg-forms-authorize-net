@@ -1,0 +1,29 @@
+{
+  "name": "developwithwp/omg-forms-authorize-net",
+  "description": "An OMG Forms addon, which adds support for Authorize.net.",
+  "type": "package",
+  "keywords": [],
+  "homepage": "https://github.com/mrbobbybryant/omg-forms-authorize-net",
+  "license": "GPL-2.0+",
+  "author": {
+    "name": "Bobby Bryant",
+    "email": "bobby@developwithwp.com",
+    "homepage": "Bobby Bryant",
+    "role": "Developer"
+  },
+  "minimum-stability": "dev",
+  "repositories" : [
+    {
+      "type" : "composer",
+      "url"  : "https://wpackagist.org"
+    }
+  ],
+  "require": {
+    "developwithwp/omg-forms": "0.6.*",
+    "authorizenet/authorizenet": "dev-master"
+  },
+  "require-dev": {},
+  "autoload": {
+    "files": [ "omg-forms-authorize-net.php" ]
+  }
+}
