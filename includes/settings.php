@@ -11,7 +11,7 @@ function display_authorize_net_setting_fields() {
 
 	add_settings_field(
 		'authorize_net_api_key',
-		'Authorize.net API Key',
+		'API LOGIN ID ',
 		__NAMESPACE__ . '\display_authorize_net_key_element',
 		'authorize_net_options',
 		'section'
@@ -19,7 +19,7 @@ function display_authorize_net_setting_fields() {
 
 	add_settings_field(
 		'authorize_net_api_token',
-		'Authorize.net API Token',
+		'TRANSACTION KEY ',
 		__NAMESPACE__ . '\display_authorize_net_token_element',
 		'authorize_net_options',
 		'section'
