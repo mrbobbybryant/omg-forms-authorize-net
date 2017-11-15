@@ -1,7 +1,7 @@
 <?php
 
 if ( !defined( 'OMG_FORMS_AUTHORIZE_VERSION' ) ) {
-	define( 'OMG_FORMS_CC_VERSION', '0.1.0' );
+	define( 'OMG_FORMS_AUTHORIZE_VERSION', '0.1.0' );
 }
 
 if ( !defined( 'OMG_FORMS_AUTHORIZE_DIR' ) ) {
@@ -20,9 +20,22 @@ require_once OMG_FORMS_AUTHORIZE_DIR . '/includes/settings.php';
 \OMGForms\Authorize\Settings\setup();
 
 function authorize_net_force_rest( $args ) {
-	if ( $args['form_type'] === 'authorize-net' ) {
+	if ( $args['form_type'] === 'authorize_net' ) {
 		$args[ 'rest_api' ] = true;
 	}
 	return $args;
 }
-add_filter( 'omg_form_filter_register_args', 'constant_authorize_net_force_rest_rest' );
+add_filter( 'omg_form_filter_register_args', 'authorize_net_force_rest' );
+
+function authorize_net_filter_form_fields( $args ) {
+	if ( $args[ 'form_type' ] === 'authorize_net' ) {
+		$args['fields'][] = [
+			'slug' =>   'transaction_amount',
+			'type'  =>  'hidden',
+			'group' =>  'group_3'
+		];
+	}
+
+	return $args;
+}
+add_filter( 'omg_form_filter_register_args', __NAMESPACE__ . '\authorize_net_filter_form_fields' );
