@@ -21,8 +21,37 @@ function format_field_name( $field_key ) {
 	return str_replace( '-', '_', $key );
 }
 
+function format_expiration_date( $date ) {
+
+}
+
 function get_valid_authorize_net_field_data() {
 	return apply_filters( 'omg-form-authorize_net-valid-fields', [
-		'first_name', 'last_name', 'email_address'
+		'first_name',
+		'last_name',
+		'email_address',
+		'address',
+		'city',
+		'state',
+		'zip_code',
+		'country',
+		'card_number',
+		'card_code',
+		'expiration_date',
+		'transaction_amount'
+	] );
+}
+
+function get_required_fields() {
+	return apply_filters( 'omg-form-authorize_net-required-fields', [
+		'first_name',
+		'last_name',
+		'address',
+		'city',
+		'state',
+		'zip_code',
+		'card_number',
+		'card_code',
+		'expiration_date'
 	] );
 }
