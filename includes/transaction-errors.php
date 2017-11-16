@@ -16,7 +16,7 @@ function handle_authorize_net_form_errors( $response ) {
 
 	if ( in_array( $error, $card_number_errors ) ) {
 		return new \WP_Error(
-			'omg-form-field-error',
+			'omg-form-submission-error',
 			$response->getErrorText(),
 			array( 'status' => 400, 'fields' => [ 'omg-forms-card_number' ] )
 		);
@@ -24,7 +24,7 @@ function handle_authorize_net_form_errors( $response ) {
 
 	if ( in_array( $error, $expiration_errors ) ) {
 		return new \WP_Error(
-			'omg-form-field-error',
+			'omg-form-submission-error',
 			$response->getErrorText(),
 			array( 'status' => 400, 'fields' => [ 'omg-forms-expiration_date' ] )
 		);
