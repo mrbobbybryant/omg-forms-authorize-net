@@ -1,7 +1,7 @@
 <?php
 
 if ( !defined( 'OMG_FORMS_AUTHORIZE_VERSION' ) ) {
-	define( 'OMG_FORMS_CC_VERSION', '0.1.0' );
+	define( 'OMG_FORMS_AUTHORIZE_VERSION', '0.1.0' );
 }
 
 if ( !defined( 'OMG_FORMS_AUTHORIZE_DIR' ) ) {
@@ -12,10 +12,7 @@ if ( !defined( 'OMG_FORMS_AUTHORIZE_FILE' ) ) {
 	define( 'OMG_FORMS_AUTHORIZE_FILE', __FILE__ );
 }
 
-require_once OMG_FORMS_AUTHORIZE_DIR . '/includes/api.php';
-require_once OMG_FORMS_AUTHORIZE_DIR . '/includes/validation.php';
-require_once OMG_FORMS_AUTHORIZE_DIR . '/includes/helpers.php';
-require_once OMG_FORMS_AUTHORIZE_DIR . '/includes/settings.php';
+\AaronHolbrook\Autoload\autoload( OMG_FORMS_AUTHORIZE_DIR . '/includes' );
 
 \OMGForms\Authorize\Settings\setup();
 
@@ -25,4 +22,4 @@ function authorize_net_force_rest( $args ) {
 	}
 	return $args;
 }
-add_filter( 'omg_form_filter_register_args', 'constant_authorize_net_force_rest_rest' );
+add_filter( 'omg_form_filter_register_args', 'authorize_net_force_rest' );
