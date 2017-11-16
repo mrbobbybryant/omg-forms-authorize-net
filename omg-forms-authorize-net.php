@@ -16,6 +16,8 @@ require_once OMG_FORMS_AUTHORIZE_DIR . '/includes/api.php';
 require_once OMG_FORMS_AUTHORIZE_DIR . '/includes/validation.php';
 require_once OMG_FORMS_AUTHORIZE_DIR . '/includes/helpers.php';
 require_once OMG_FORMS_AUTHORIZE_DIR . '/includes/settings.php';
+require_once OMG_FORMS_AUTHORIZE_DIR . '/includes/process-card.php';
+require_once OMG_FORMS_AUTHORIZE_DIR . '/includes/transaction-errors.php';
 
 \OMGForms\Authorize\Settings\setup();
 
