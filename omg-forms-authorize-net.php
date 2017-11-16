@@ -1,7 +1,7 @@
 <?php
 
 if ( !defined( 'OMG_FORMS_AUTHORIZE_VERSION' ) ) {
-	define( 'OMG_FORMS_AUTHORIZE_VERSION', '0.1.0' );
+	define( 'OMG_FORMS_AUTHORIZE_VERSION', '0.1.2' );
 }
 
 if ( !defined( 'OMG_FORMS_AUTHORIZE_DIR' ) ) {
