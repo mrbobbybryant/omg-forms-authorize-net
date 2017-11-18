@@ -1,9 +1,11 @@
 <?php
 namespace OMGForms\Authorize\ProcessCard;
 
+use GuzzleHttp\Ring\Core;
 use net\authorize\api\contract\v1 as AnetAPI;
 use net\authorize\api\controller as AnetController;
 use OMGForms\Authorize\TransactionErrors;
+use OMGForms\Helpers as CoreHelpers;
 
 define("AUTHORIZENET_LOG_FILE", "phplog");
 
@@ -12,18 +14,18 @@ function process_card( $data ) {
 	$apiToken = get_option( 'authorize_net_api_token' );
 
 	if ( empty( $apiKey ) ) {
-		return new \WP_Error(
+		return CoreHelpers\return_error(
 			'authorize-net-error',
 			'You must set the API Key before you Authorize.net form will work.',
-			array( 'status' => 400 )
+			400
 		);
 	}
 
 	if ( empty( $apiToken ) ) {
-		return new \WP_Error(
+		return CoreHelpers\return_error(
 			'authorize-net-error',
 			'You must set the API Token before you Authorize.net form will work.',
-			array( 'status' => 400 )
+			400
 		);
 	}
 
@@ -94,17 +96,9 @@ function process_card( $data ) {
 				return TransactionErrors\handle_authorize_net_form_errors( $tresponse->getErrors()[0] );
 			}
 		} else {
-			return new \WP_Error(
-				'omg-form-submission-error',
-				'Charge Credit Card Null response returned',
-				array( 'status' => 400 )
-			);
+			return CoreHelpers\return_form_level_error( 'Charge Credit Card Null response returned' );
 		}
 	} else {
-		return new \WP_Error(
-			'omg-form-submission-error',
-			'Charge Credit Card Null response returned',
-			array( 'status' => 400 )
-		);
+		return CoreHelpers\return_form_level_error( 'Charge Credit Card Null response returned' );
 	}
 }

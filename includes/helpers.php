@@ -1,6 +1,8 @@
 <?php
 namespace OMGForms\Authorize\Helpers;
 
+use OMGForms\Helpers as CoreHelpers;
+
 function prepare_authorize_net_form_fields( $args ) {
 	return array_reduce( array_keys( $args ), function( $acc, $arg ) use( $args ) {
 		$key = format_field_name( $arg );
@@ -31,11 +33,7 @@ function format_expiration_date( $data ) {
 		return $data;
 	}
 
-	return new \WP_Error(
-		'omg-form-submission-error',
-		'Authorize.net form is missing expiration date fields.',
-		array( 'status' => 400 )
-	);
+	return CoreHelpers\return_form_level_error( 'Authorize.net form is missing expiration date fields.' );
 }
 
 function get_valid_authorize_net_field_data() {

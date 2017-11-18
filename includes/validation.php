@@ -3,6 +3,7 @@ namespace OMGForms\Authorize\Validation;
 
 use OMGForms\Authorize\Helpers;
 use Inacho\CreditCard;
+use OMGForms\Helpers as CoreHelpers;
 
 function valid_authorize_net_forms( $args ) {
 	$required = Helpers\get_required_fields();
@@ -83,7 +84,12 @@ function valid_card_information( $fields ) {
 
 	}
 
-	return empty( $errors ) ? $fields : new \WP_Error( 'omg-form-field-error', 'Card Info Failed Validation', array( 'status' => 400, 'fields' => $errors ) );
+	$error = CoreHelpers\return_field_level_error(
+		'Card Info Failed Validation',
+		$errors
+	);
+
+	return empty( $errors ) ? $fields : $error;
 }
 
 function is_valid_credit_card( $credit_card ) {
