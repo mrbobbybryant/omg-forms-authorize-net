@@ -2,6 +2,7 @@
 namespace OMGForms\Authorize\API;
 
 use OMGForms\Authorize\Helpers;
+use OMGForms\Authorize\Validation;
 use OMGForms\Authorize\ProcessCard;
 
 function save_form_as_authorize_net( $result, $args, $form ) {
@@ -9,7 +10,19 @@ function save_form_as_authorize_net( $result, $args, $form ) {
 	if ( $form[ 'form_type' ] === 'authorize_net' ) {
 
 		$data = Helpers\prepare_authorize_net_form_fields( $args );
+
+
+		if ( is_wp_error( $data ) ) {
+			return $data;
+		}
+
 		$data = Helpers\format_expiration_date( $data );
+
+		if ( is_wp_error( $data ) ) {
+			return $data;
+		}
+
+		$data = Validation\valid_card_information( $data );
 
 		if ( is_wp_error( $data ) ) {
 			return $data;

@@ -2,6 +2,7 @@
 namespace OMGForms\Authorize\Validation;
 
 use OMGForms\Authorize\Helpers;
+use Inacho\CreditCard;
 
 function valid_authorize_net_forms( $args ) {
 	$required = Helpers\get_required_fields();
@@ -59,4 +60,43 @@ function validate_expiration_data_fields( $fields ) {
 
 		return ( empty( $field_errors ) ) ? false : $field_errors;
 	}
+}
+
+function valid_card_information( $fields ) {
+	$errors = [];
+
+	if ( ! is_valid_credit_card( $fields[ 'card_number' ] ) ) {
+		$errors[] = 'omg-forms-card_number';
+	} else {
+		if ( ! is_valid_card_code( $fields[ 'card_number' ], $fields[ 'card_code' ] ) ) {
+			$errors[] = 'omg-forms-card_code';
+		}
+	}
+
+	if ( ! is_valid_expiration_date( $fields[ 'expiration_date' ] ) ) {
+		if ( isset( $fields[ 'expiration_month' ] ) && isset( $fields[ 'expiration_year' ] ) ) {
+			$errors[] = 'omg-forms-expiration_month';
+			$errors[] = 'omg-forms-expiration_year';
+		} else {
+			$errors[] = 'omg-forms-expiration_date';
+		}
+
+	}
+
+	return empty( $errors ) ? $fields : new \WP_Error( 'omg-form-field-error', 'Card Info Failed Validation', array( 'status' => 400, 'fields' => $errors ) );
+}
+
+function is_valid_credit_card( $credit_card ) {
+	$card = CreditCard::validCreditCard( $credit_card );
+	return $card[ 'valid' ];
+}
+
+function is_valid_expiration_date( $date ) {
+	$pieces = explode( '-', $date );
+	return CreditCard::validDate($pieces[0], $pieces[1]);
+}
+
+function is_valid_card_code( $credit_card, $cvv ) {
+	$card = CreditCard::validCreditCard( $credit_card );
+	return CreditCard::validCvc( $cvv, $card[ 'type' ] );
 }
