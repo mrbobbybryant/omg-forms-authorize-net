@@ -33,7 +33,7 @@ function save_form_as_authorize_net( $result, $args, $form ) {
 
 	}
 
-	return $result;
+	return Helpers\remove_sensitive_data( $result );
 }
 
 add_filter( 'omg_forms_save_data', __NAMESPACE__ .  '\save_form_as_authorize_net', 10, 3 );

@@ -98,3 +98,12 @@ function register_credit_card_field( $args ) {
 		'sanitize_cb'   =>  '\OMGForms\Authorize\Helpers\sanitize_credit_card'
 	] );
 }
+
+function remove_sensitive_data( $data ) {
+	unset( $data['card_code'] );
+	unset( $data['expiration_month'] );
+	unset( $data['expiration_year'] );
+	unset( $data['expiration_date'] );
+	unset( $data['card_number'] );
+	return $data;
+}
