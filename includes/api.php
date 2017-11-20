@@ -4,10 +4,11 @@ namespace OMGForms\Authorize\API;
 use OMGForms\Authorize\Helpers;
 use OMGForms\Authorize\Validation;
 use OMGForms\Authorize\ProcessCard;
+use OMGForms\Helpers as CoreHelpers;
 
 function save_form_as_authorize_net( $result, $args, $form ) {
 
-	if ( $form[ 'form_type' ] === 'authorize_net' ) {
+	if ( CoreHelpers\is_form_type( 'authorize_net', $form ) ) {
 
 		$data = Helpers\prepare_authorize_net_form_fields( $args );
 
@@ -28,7 +29,7 @@ function save_form_as_authorize_net( $result, $args, $form ) {
 			return $data;
 		}
 
-		$result = ProcessCard\process_card( $data );
+		ProcessCard\process_card( $data );
 
 	}
 

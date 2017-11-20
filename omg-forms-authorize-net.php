@@ -19,7 +19,7 @@ if ( !defined( 'OMG_FORMS_AUTHORIZE_FILE' ) ) {
 \OMGForms\Authorize\Core\setup();
 
 function authorize_net_force_rest( $args ) {
-	if ( $args['form_type'] === 'authorize_net' ) {
+	if ( OMGForms\Helpers\is_form_type( 'authorize_net', $args ) ) {
 		$args[ 'rest_api' ] = true;
 	}
 	return $args;
