@@ -89,3 +89,12 @@ function format_credit_card( $number ) {
 function limit_credit_card_length( $number ) {
 	return substr( $number, 0, 16 );
 }
+
+function register_credit_card_field( $args ) {
+	return wp_parse_args( $args, [
+		'slug'          =>  'card_number',
+		'type'          =>  'number',
+		'required'      =>  true,
+		'sanitize_cb'   =>  '\OMGForms\Authorize\Helpers\sanitize_credit_card'
+	] );
+}

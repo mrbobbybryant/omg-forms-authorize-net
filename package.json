@@ -1,0 +1,42 @@
+{
+  "name": "omg-forms-authorize-net",
+  "title": "OMG Forms Authorize.net",
+  "description": "An OMG Forms addon, which adds support for Authorize.net.",
+  "version": "0.1.2",
+  "homepage": "https://github.com/mrbobbybryant/omg-forms-authorize-net",
+  "scripts": {
+    "start": "webpack --config webpack.config.js",
+    "watch": "webpack --watch",
+    "build": "webpack -p --progress --colors"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": {
+    "name": "Bobby Bryant",
+    "email": "bobby@developwithwp.com",
+    "url": "http://developwithwp.com"
+  },
+  "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-es2016": "^6.22.0",
+    "css-loader": "^0.26.1",
+    "eslint": "^4.7.2",
+    "eslint-loader": "^1.9.0",
+    "extract-text-webpack-plugin": "2.0.0-beta.4",
+    "file-loader": "^0.9.0",
+    "postcss": "^5.2.11",
+    "postcss-cssnext": "^2.9.0",
+    "postcss-import": "^9.1.0",
+    "postcss-loader": "^1.2.2",
+    "webpack": "beta"
+  },
+  "keywords": [],
+  "dependencies": {
+    "autoprefixer": "^6.7.7",
+    "postcss-nested": "^1.0.0"
+  }
+}

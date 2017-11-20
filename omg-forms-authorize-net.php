@@ -16,6 +16,7 @@ if ( !defined( 'OMG_FORMS_AUTHORIZE_FILE' ) ) {
 \AaronHolbrook\Autoload\autoload( OMG_FORMS_AUTHORIZE_DIR . '/includes' );
 
 \OMGForms\Authorize\Settings\setup();
+\OMGForms\Authorize\Core\setup();
 
 function authorize_net_force_rest( $args ) {
 	if ( $args['form_type'] === 'authorize_net' ) {
