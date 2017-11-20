@@ -20,7 +20,7 @@
   ],
   "require": {
     "developwithwp/omg-forms": "0.6.*",
-    "authorizenet/authorizenet": "dev-master",
+    "authorizenet/authorizenet": "^1.9.3",
     "inacho/php-credit-card-validator": "1.*",
     "aaronholbrook/autoload": "dev-master"
   },
