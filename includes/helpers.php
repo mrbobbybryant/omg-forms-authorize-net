@@ -116,10 +116,10 @@ function register_credit_card_field( $args ) {
 }
 
 function remove_sensitive_data( $data ) {
-	unset( $data['card_code'] );
-	unset( $data['expiration_month'] );
-	unset( $data['expiration_year'] );
-	unset( $data['expiration_date'] );
-	unset( $data['card_number'] );
+	unset( $data['omg-forms-card_code'] );
+	unset( $data['omg-forms-expiration_month'] );
+	unset( $data['omg-forms-expiration_year'] );
+	unset( $data['omg-forms-expiration_date'] );
+	unset( $data['omg-forms-card_number'] );
 	return $data;
 }
