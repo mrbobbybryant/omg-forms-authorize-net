@@ -23,6 +23,11 @@ function format_field_name( $field_key ) {
 	return str_replace( '-', '_', $key );
 }
 
+function format_authorize_net_form_fields( $data ) {
+	$data = format_name_field( $data );
+	return format_expiration_date( $data );
+}
+
 function format_expiration_date( $data ) {
 	if ( in_array( 'expiration_date', $data ) ) {
 		return $data;
@@ -39,9 +44,9 @@ function format_expiration_date( $data ) {
 function format_name_field( $data ) {
 	if ( isset( $data[ 'name' ] ) ) {
 		$parser = new \FullNameParser();
-		$parser->parse_name( $data[ 'name' ] );
-		$data[ 'first_name' ] = $parser[ 'fname' ];
-		$data[ 'last_name' ] = $parser[ 'lname' ];
+		$name = $parser->parse_name( $data[ 'name' ] );
+		$data[ 'first_name' ] = $name[ 'fname' ];
+		$data[ 'last_name' ] = $name[ 'lname' ];
 	}
 	return $data;
 }

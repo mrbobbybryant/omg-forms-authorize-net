@@ -18,8 +18,7 @@ function save_form_as_authorize_net( $result, $args, $form ) {
 
 		$data = apply_filters( 'modify_omg_forms_authorize_data', $data, $args, $form );
 
-		$data = Helpers\format_expiration_date( $data );
-		$data = Helpers\format_name_field( $data );
+		$data = Helpers\format_authorize_net_form_fields( $data );
 
 		if ( is_wp_error( $data ) ) {
 			return $data;
