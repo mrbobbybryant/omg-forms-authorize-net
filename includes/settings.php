@@ -11,7 +11,7 @@ function display_authorize_net_setting_fields() {
 
 	add_settings_field(
 		'authorize_net_api_key',
-		'API LOGIN ID ',
+		'API LOGIN ID',
 		__NAMESPACE__ . '\display_authorize_net_key_element',
 		'authorize_net_options',
 		'section'
@@ -19,14 +19,23 @@ function display_authorize_net_setting_fields() {
 
 	add_settings_field(
 		'authorize_net_api_token',
-		'TRANSACTION KEY ',
+		'TRANSACTION KEY',
 		__NAMESPACE__ . '\display_authorize_net_token_element',
+		'authorize_net_options',
+		'section'
+	);
+
+	add_settings_field(
+		'authorize_net_sandbox_mode',
+		'Turn on Sandbox Mode?',
+		__NAMESPACE__ . '\display_authorize_net_sandbox_element',
 		'authorize_net_options',
 		'section'
 	);
 
 	register_setting( 'authorize_net-section', 'authorize_net_api_key' );
 	register_setting( 'authorize_net-section', 'authorize_net_api_token' );
+	register_setting( 'authorize_net-section', 'authorize_net_sandbox_mode' );
 
 }
 
@@ -48,6 +57,21 @@ function display_authorize_net_token_element() {
             size="55"
             name="authorize_net_api_token"
             value="<?php echo get_option( 'authorize_net_api_token' ); ?>"
+    />
+	<?php
+}
+
+function display_authorize_net_sandbox_element() {
+    $option = get_option( 'authorize_net_sandbox_mode' );
+	?>
+    <label for="authorize_net_sandbox_mode">Yes</label>
+    <input
+        id="authorize_net_sandbox_mode"
+        type="checkbox"
+        size="55"
+        name="authorize_net_sandbox_mode"
+        value="1"
+        <?php checked( $option, 1, true ); ?>
     />
 	<?php
 }

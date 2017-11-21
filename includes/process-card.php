@@ -12,6 +12,7 @@ define("AUTHORIZENET_LOG_FILE", "phplog");
 function process_card( $data, $address = true ) {
 	$apiKey   = get_option( 'authorize_net_api_key' );
 	$apiToken = get_option( 'authorize_net_api_token' );
+	$sandbox_mode = get_option( 'authorize_net_sandbox_mode' );
 
 	if ( empty( $apiKey ) ) {
 		return CoreHelpers\return_error(
@@ -89,7 +90,12 @@ function process_card( $data, $address = true ) {
 	$request->setRefId( $refId );
 	$request->setTransactionRequest( $transactionRequestType );
 	$controller = new AnetController\CreateTransactionController( $request );
-	$response   = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX );
+
+	if ( $sandbox_mode ) {
+		$response   = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX );
+	} else {
+		$response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+	}
 
 	if ( $response != null ) {
 
