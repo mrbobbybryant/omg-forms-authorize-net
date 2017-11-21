@@ -9,7 +9,7 @@ use OMGForms\Helpers as CoreHelpers;
 
 define("AUTHORIZENET_LOG_FILE", "phplog");
 
-function process_card( $data ) {
+function process_card( $data, $address = true ) {
 	$apiKey   = get_option( 'authorize_net_api_key' );
 	$apiToken = get_option( 'authorize_net_api_token' );
 
@@ -47,24 +47,26 @@ function process_card( $data ) {
 	$paymentOne = new AnetAPI\PaymentType();
 	$paymentOne->setCreditCard( $creditCard );
 
-	//Set Customer Address
-	$customerAddress = new AnetAPI\CustomerAddressType();
-	$customerAddress->setFirstName( $data['first_name'] );
-	$customerAddress->setLastName( $data['last_name'] );
+	if ( $address ) {
+		//Set Customer Address
+		$customerAddress = new AnetAPI\CustomerAddressType();
+		$customerAddress->setFirstName( $data['first_name'] );
+		$customerAddress->setLastName( $data['last_name'] );
 
-	if ( isset( $data['company'] ) ) {
-		$customerAddress->setCompany( $data['company'] );
-	}
+		if ( isset( $data['company'] ) ) {
+			$customerAddress->setCompany( $data['company'] );
+		}
 
-	$customerAddress->setAddress( $data['address'] );
-	$customerAddress->setCity( $data['city'] );
-	$customerAddress->setState( $data['state'] );
-	$customerAddress->setZip( $data['zip_code'] );
+		$customerAddress->setAddress( $data['address'] );
+		$customerAddress->setCity( $data['city'] );
+		$customerAddress->setState( $data['state'] );
+		$customerAddress->setZip( $data['zip_code'] );
 
-	if ( ! isset( $data['country'] ) ) {
-		$customerAddress->setCountry( 'USA' );
-	} else {
-		$customerAddress->setCountry( $data['country'] );
+		if ( ! isset( $data['country'] ) ) {
+			$customerAddress->setCountry( 'USA' );
+		} else {
+			$customerAddress->setCountry( $data['country'] );
+		}
 	}
 
 	// Create a TransactionRequestType object and add the previous objects to it
@@ -72,7 +74,10 @@ function process_card( $data ) {
 	$transactionRequestType->setTransactionType( "authCaptureTransaction" );
 	$transactionRequestType->setAmount( $data['transaction_amount'] );
 	$transactionRequestType->setPayment( $paymentOne );
-	$transactionRequestType->setBillTo( $customerAddress );
+
+	if ( isset( $customerAddress ) ) {
+		$transactionRequestType->setBillTo( $customerAddress );
+	}
 
 	// Create a transaction
 	$transactionRequestType = new AnetAPI\TransactionRequestType();
@@ -90,7 +95,7 @@ function process_card( $data ) {
 
 		$tresponse = $response->getTransactionResponse();
 		if ( ( $tresponse != null ) && ( $tresponse->getResponseCode() == "1" ) ) {
-			return true;
+			return $tresponse;
 		} else if ( $tresponse != null ) {
 			if ($tresponse->getErrors() != null) {
 				return TransactionErrors\handle_authorize_net_form_errors( $tresponse->getErrors()[0] );
