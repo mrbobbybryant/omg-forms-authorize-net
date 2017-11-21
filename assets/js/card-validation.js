@@ -1,20 +1,34 @@
 import payform from 'payform';
 
-export default function( form = document.getElementById( 'donationForm' ) ) {
+export default function( form ) {
 
     if ( !form ) {
         return false;
     }
 
-    let cardField  =  document.getElementById('omg-forms-card_number');
-    let cardInput  =  cardField.querySelector('input');
-    let cardDate   = document.querySelectorAll('.donation-expiration-date');
-    let cardMonth  =  document.getElementById('omg-forms-expiration_month');
-    let cardMonthSelect = cardMonth.querySelector('select');
-    let cardYear   =  document.getElementById('omg-forms-expiration_year');
-    let cardYearSelect = cardYear.querySelector('select');
-    let cardCode   = document.getElementById('omg-forms-card_code');
-    let cardCodeInput = cardCode.querySelector('input');
+    const cardField  =  document.getElementById('omg-forms-card_number');
+    const cardInput  =  cardField.querySelector('input');
+
+    const cardMonth  =  document.getElementById('omg-forms-expiration_month');
+    let cardMonthSelect;
+    if ( cardMonth ) {
+        cardMonthSelect = cardMonth.querySelector('select');
+    }
+
+    const cardYear   =  document.getElementById('omg-forms-expiration_year');
+    let cardYearSelect;
+    if ( cardYear ) {
+         cardYearSelect = cardYear.querySelector('select');
+    }
+
+    const cardCode   = document.getElementById('omg-forms-card_code');
+    const cardCodeInput = cardCode.querySelector('input');
+
+    const cardExpiration = document.getElementById('omg-forms-expiration_date');
+    let cardExpirationInput;
+    if ( cardExpiration ) {
+        cardExpirationInput = cardExpiration.querySelector('input');
+    }
 
     payform.cardNumberInput(cardInput);
     payform.cvcInput(cardCodeInput);
@@ -39,13 +53,37 @@ export default function( form = document.getElementById( 'donationForm' ) ) {
         validateCardInput(cardCodeInput, payform.validateCardCVC(event.target.value), event)
     });
 
-    [].forEach.call( cardDate, function( item ) {
-        let select = item.querySelector('select');
+    if ( cardExpiration ) {
+        cardExpirationInput.addEventListener('keyup', function(event){
+            if ( cardCode.classList.contains('error') ) {
+                validateCardInput(cardCodeInput, payform.validateCardCVC(event.target.value), event);
+            }
+        });
 
-        select.addEventListener('change', function () {
+        cardExpirationInput.addEventListener('blur', function () {
+            validateCardInput(cardInput, payform.validateCardNumber(event.target.value), event)
+        });
+    }
+
+    if ( cardMonth ) {
+        cardMonthSelect.addEventListener('change', function () {
             validateCardDate()
         });
-    });
+    }
+
+    if ( cardYear ) {
+        cardYearSelect.addEventListener('change', function () {
+            validateCardDate()
+        });
+    }
+
+    // [].forEach.call( cardDate, function( item ) {
+    //     let select = item.querySelector('select');
+    //
+    //     select.addEventListener('change', function () {
+    //         validateCardDate()
+    //     });
+    // });
 
     function validateCardInput(element, valid, event) {
 
