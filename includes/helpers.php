@@ -36,10 +36,21 @@ function format_expiration_date( $data ) {
 	return CoreHelpers\return_form_level_error( 'Authorize.net form is missing expiration date fields.' );
 }
 
+function format_name_field( $data ) {
+	if ( isset( $data[ 'name' ] ) ) {
+		$parser = new \FullNameParser();
+		$parser->parse_name( $data[ 'name' ] );
+		$data[ 'first_name' ] = $parser[ 'fname' ];
+		$data[ 'last_name' ] = $parser[ 'lname' ];
+	}
+	return $data;
+}
+
 function get_valid_authorize_net_field_data() {
 	return apply_filters( 'omg-form-authorize_net-valid-fields', [
 		'first_name',
 		'last_name',
+		'name',
 		'email_address',
 		'address',
 		'city',
@@ -57,12 +68,12 @@ function get_valid_authorize_net_field_data() {
 
 function get_required_fields() {
 	return apply_filters( 'omg-form-authorize_net-required-fields', [
-		'first_name',
-		'last_name',
-		'address',
-		'city',
-		'state',
-		'zip_code',
+//		'first_name',
+//		'last_name',
+//		'address',
+//		'city',
+//		'state',
+//		'zip_code',
 		'card_number',
 		'card_code'
 	] );

@@ -7,7 +7,7 @@ use OMGForms\Helpers as CoreHelpers;
 
 function valid_authorize_net_forms( $args ) {
 	$required = Helpers\get_required_fields();
-	if ( isset( $args[ 'form_type' ] ) && 'authorize_net' === $args[ 'form_type' ] ) {
+	if ( isset( $args[ 'form_type' ] ) && CoreHelpers\is_form_type( 'authorize_net', $args ) ) {
 		$errors = array_reduce( $required, function( $prev, $field ) use( $args ) {
 			if ( ! field_exists( $field, $args['fields'] ) ) {
 				if ( 0 === strlen( $prev ) ) {
@@ -20,7 +20,7 @@ function valid_authorize_net_forms( $args ) {
 		}, false );
 
 		if ( $errors ) {
-			trigger_error( 'Authorize.net form is missing the following required fields: ' . implode( ', ', $errors ), E_USER_ERROR );
+			trigger_error( 'Authorize.net form is missing the following required fields: ' .$errors, E_USER_ERROR );
 		}
 
 		$errors = validate_expiration_data_fields( $args['fields'] );

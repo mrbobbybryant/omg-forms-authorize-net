@@ -12,12 +12,14 @@ function save_form_as_authorize_net( $result, $args, $form ) {
 
 		$data = Helpers\prepare_authorize_net_form_fields( $args );
 
-
 		if ( is_wp_error( $data ) ) {
 			return $data;
 		}
 
+		$data = apply_filters( 'modify_omg_forms_authorize_data', $data, $args, $form );
+
 		$data = Helpers\format_expiration_date( $data );
+		$data = Helpers\format_name_field( $data );
 
 		if ( is_wp_error( $data ) ) {
 			return $data;
@@ -29,7 +31,7 @@ function save_form_as_authorize_net( $result, $args, $form ) {
 			return $data;
 		}
 
-		ProcessCard\process_card( $data );
+		ProcessCard\process_card( $data, $form[ 'address' ] );
 
 	}
 

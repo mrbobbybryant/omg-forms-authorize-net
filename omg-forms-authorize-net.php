@@ -1,7 +1,7 @@
 <?php
 
 if ( !defined( 'OMG_FORMS_AUTHORIZE_VERSION' ) ) {
-	define( 'OMG_FORMS_AUTHORIZE_VERSION', '0.1.2' );
+	define( 'OMG_FORMS_AUTHORIZE_VERSION', '0.1.3' );
 }
 
 if ( !defined( 'OMG_FORMS_AUTHORIZE_DIR' ) ) {
@@ -11,7 +11,6 @@ if ( !defined( 'OMG_FORMS_AUTHORIZE_DIR' ) ) {
 if ( !defined( 'OMG_FORMS_AUTHORIZE_FILE' ) ) {
 	define( 'OMG_FORMS_AUTHORIZE_FILE', __FILE__ );
 }
-
 
 \AaronHolbrook\Autoload\autoload( OMG_FORMS_AUTHORIZE_DIR . '/includes' );
 
