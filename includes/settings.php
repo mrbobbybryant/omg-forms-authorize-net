@@ -2,40 +2,39 @@
 namespace OMGForms\Authorize\Settings;
 
 function setup() {
-	add_action( 'omg-form-settings-hook', __NAMESPACE__ . '\register_form_settings' );
-	add_action( 'admin_init', __NAMESPACE__ . '\display_authorize_net_setting_fields' );
+	add_action( 'admin_init', __NAMESPACE__ . '\display_authorize_net_setting_fields', 10, 2 );
 }
 
 function display_authorize_net_setting_fields() {
-	add_settings_section( 'section', esc_html__( 'Authorize.net Settings' ), null, 'authorize_net_options' );
+	add_settings_section( 'authorize-section', esc_html__( 'Authorize.net Settings' ), null, 'form_settings' );
 
 	add_settings_field(
 		'authorize_net_api_key',
 		'API LOGIN ID',
 		__NAMESPACE__ . '\display_authorize_net_key_element',
-		'authorize_net_options',
-		'section'
+		'form_settings',
+		'authorize-section'
 	);
 
 	add_settings_field(
 		'authorize_net_api_token',
 		'TRANSACTION KEY',
 		__NAMESPACE__ . '\display_authorize_net_token_element',
-		'authorize_net_options',
-		'section'
+		'form_settings',
+		'authorize-section'
 	);
 
 	add_settings_field(
 		'authorize_net_sandbox_mode',
 		'Turn on Sandbox Mode?',
 		__NAMESPACE__ . '\display_authorize_net_sandbox_element',
-		'authorize_net_options',
-		'section'
+		'form_settings',
+		'authorize-section'
 	);
 
-	register_setting( 'authorize_net-section', 'authorize_net_api_key' );
-	register_setting( 'authorize_net-section', 'authorize_net_api_token' );
-	register_setting( 'authorize_net-section', 'authorize_net_sandbox_mode' );
+	register_setting( 'omg-forms-section', 'authorize_net_api_key' );
+	register_setting( 'omg-forms-section', 'authorize_net_api_token' );
+	register_setting( 'omg-forms-section', 'authorize_net_sandbox_mode' );
 
 }
 
@@ -74,9 +73,4 @@ function display_authorize_net_sandbox_element() {
         <?php checked( $option, 1, true ); ?>
     />
 	<?php
-}
-
-function register_form_settings() {
-	settings_fields( 'authorize_net-section' );
-	do_settings_sections( 'authorize_net_options' );
 }
