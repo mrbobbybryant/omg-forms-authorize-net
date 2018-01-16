@@ -1,14 +1,14 @@
 <?php
 
-if ( !defined( 'OMG_FORMS_AUTHORIZE_VERSION' ) ) {
-	define( 'OMG_FORMS_AUTHORIZE_VERSION', '0.2.1' );
+if ( ! defined( 'OMG_FORMS_AUTHORIZE_VERSION' ) ) {
+	define( 'OMG_FORMS_AUTHORIZE_VERSION', '0.2.2' );
 }
 
-if ( !defined( 'OMG_FORMS_AUTHORIZE_DIR' ) ) {
+if ( ! defined( 'OMG_FORMS_AUTHORIZE_DIR' ) ) {
 	define( 'OMG_FORMS_AUTHORIZE_DIR', dirname( __FILE__ ) );
 }
 
-if ( !defined( 'OMG_FORMS_AUTHORIZE_FILE' ) ) {
+if ( ! defined( 'OMG_FORMS_AUTHORIZE_FILE' ) ) {
 	define( 'OMG_FORMS_AUTHORIZE_FILE', __FILE__ );
 }
 
