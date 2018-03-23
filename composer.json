@@ -19,7 +19,7 @@
     }
   ],
   "require": {
-    "developwithwp/omg-forms": "v0.8.*",
+    "developwithwp/omg-forms": "v0.9.*",
     "authorizenet/authorizenet": "^1.9.3",
     "inacho/php-credit-card-validator": "1.*",
     "aaronholbrook/autoload": "dev-master",
