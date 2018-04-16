@@ -2,7 +2,7 @@
   "name": "omg-forms-authorize-net",
   "title": "OMG Forms Authorize.net",
   "description": "An OMG Forms addon, which adds support for Authorize.net.",
-  "version": "0.3.0",
+  "version": "0.5.0",
   "homepage": "https://github.com/mrbobbybryant/omg-forms-authorize-net",
   "scripts": {
     "start": "webpack --config webpack.config.js",
